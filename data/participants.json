@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Yann",
+    "email": "yann@test.com",
+    "isOrganizer": true
+  },
+  {
+    "name": "My guest",
+    "email": "myguest@test.com"
+  },
+  {
+    "name": "My guest2",
+    "email": "myguest2@test.com"
+  },
+  {
+    "name": "My guest3",
+    "email": "myguest3@test.com"
+  },
+  {
+    "name": "My guest4",
+    "email": "myguest4@test.com"
+  },
+  {
+    "name": "My guest5",
+    "email": "myguest5@test.com"
+  },
+  {
+    "name": "My guest6",
+    "email": "myguest6@test.com"
+  },
+  {
+    "name": "My guest7",
+    "email": "myguest7@test.com"
+  }
+]

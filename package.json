@@ -1,0 +1,21 @@
+{
+  "name": "christmas-gifts",
+  "description": "To whom should you give a present this year?",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ydamato/christmas-gifts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/ydamato/christmas-gifts",
+  "dependencies": {
+    "shuffle-array": "^1.0.1"
+  },
+  "devDependencies": {
+    "json-string": "0.0.1"
+  }
+}
