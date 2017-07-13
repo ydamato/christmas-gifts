@@ -15,7 +15,6 @@
   "dependencies": {
     "email": "^0.2.6",
     "json-string": "0.0.1",
-    "require-text": "0.0.1",
     "shuffle-array": "^1.0.1",
     "string-template": "^1.0.0"
   }
