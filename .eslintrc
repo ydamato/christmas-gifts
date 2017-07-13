@@ -12,6 +12,7 @@
       "import/no-dynamic-require": 0,
       "comma-dangle": 0,
       "no-confusing-arrow": 0,
-      "global-require": 0
+      "global-require": 0,
+      "prefer-template": 0
     }
 }

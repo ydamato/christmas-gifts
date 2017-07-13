@@ -1,0 +1,1 @@
+Hello {giver}, you have to give gift1 to {receiver1} and gift2 to {receiver2}

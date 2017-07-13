@@ -13,9 +13,10 @@
   "license": "MIT",
   "homepage": "https://github.com/ydamato/christmas-gifts",
   "dependencies": {
-    "shuffle-array": "^1.0.1"
-  },
-  "devDependencies": {
-    "json-string": "0.0.1"
+    "email": "^0.2.6",
+    "json-string": "0.0.1",
+    "require-text": "0.0.1",
+    "shuffle-array": "^1.0.1",
+    "string-template": "^1.0.0"
   }
 }

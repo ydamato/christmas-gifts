@@ -1,5 +1,7 @@
 const shuffle = require('shuffle-array');
-const jsonString = require('json-string');
+const requireText = require('require-text');
+
+const sendEmail = require('./email');
 
 /**
  * @function setNodeParams
@@ -47,10 +49,10 @@ const getReceivers = (participants, index, nbOfReceivers) => {
  * @function fillStructuredJson
  * @description Fill the JSON structure containing the matching giver/receivers
  * @param {Array} participants List of all participants
- * @param {Number} nbOfReceivers Number of receiver - default: 1
+ * @param {Number} nbOfReceivers Number of receiver - default: 2
  * @return {Array} list of receivers
  */
-const fillStructuredJson = (participants, nbOfReceivers = 1) =>
+const fillStructuredJson = (participants, nbOfReceivers = 2) =>
   participants.map((giver, index) =>
     ({
       giver,
@@ -66,9 +68,16 @@ const fillStructuredJson = (participants, nbOfReceivers = 1) =>
  */
 const getParticipants = dataPath => require(dataPath || './data/participants.json');
 
+/**
+ * @function getTpl
+ * @description Get template from txt file
+ * @param {String} tplPath Path to the txt file - default: './templates/default.txt'
+ * @return {String} template
+ */
+const getTpl = tplPath => requireText(tplPath || './templates/default.txt', require);
 
 const params = setNodeParams();
 const participants = shuffle(getParticipants(params.dataPath));
-let structuredJson = fillStructuredJson(participants, params.receivers);
+const structuredJson = fillStructuredJson(participants, params.receivers);
 
-console.log(jsonString(structuredJson));
+sendEmail(structuredJson, getTpl(params.tplPath));
