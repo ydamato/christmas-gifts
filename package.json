@@ -13,8 +13,13 @@
   "license": "MIT",
   "homepage": "https://github.com/ydamato/christmas-gifts",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "email": "^0.2.6",
+    "express": "^4.15.3",
     "json-string": "0.0.1",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.2",
+    "path": "^0.12.7",
     "shuffle-array": "^1.0.1",
     "string-template": "^1.0.0"
   }
