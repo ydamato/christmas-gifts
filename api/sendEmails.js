@@ -35,8 +35,7 @@ const sendEmails = (structuredJson) => {
     const formattedBody = format(body, params);
     const to = participant.email;
     const email = new Email({ from, to, subject, formattedBody, bodyType });
-
-    //email.send();
+    // email.send();
   });
   return structuredJson;
 };

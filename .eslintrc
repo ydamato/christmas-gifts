@@ -1,12 +1,11 @@
 {
-    "name": "christmas-gifts",
-    "version": "0.0.1",
-    "extends": "airbnb-base",
-    "eslintConfig": {
-        "env": {
-            "browser": true,
-            "node": true
-        }
+    "extends": ["angular", "airbnb-base"],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "env": {
+          "browser": true,
+          "node": true
+      }
     },
     "rules": {
       "import/no-dynamic-require": 0,

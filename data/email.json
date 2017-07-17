@@ -1,5 +1,0 @@
-{
-  "from": "myEmailAddress@test.com",
-  "subject": "first test",
-  "body": "hello <b>{giver}</b>,<br/> <br/>You have to give gift 1 to <b>{receiver1}</b> and gift 2 to <b>{receiver2}</b>."
-}

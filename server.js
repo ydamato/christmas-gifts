@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const { join } = require('path');
 
-const sendEmails = require('./api/emailManager');
+const sendEmails = require('./api/sendEmails');
 
 const app = express();
 
@@ -13,10 +13,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: 'true' }));
 app.use(bodyParser.json());
 
-// App has only one method, used to send the emails
+// API has only one method, used to send the emails
 app.post('/emails/send', (req, res) => {
   res.json(sendEmails(req.body.data));
 });
 
+// Entry point to display the html page
+app.get('*', (req, res) => {
+  res.sendfile('./public/index.html');
+});
+
 app.listen(8080);
-console.log('App listening on port 8080'); // eslint-disable-line no-console
+console.log('App listening on port 8080'); // eslint-disable-line
