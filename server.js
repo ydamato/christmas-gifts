@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 // API has only one method, used to send the emails
 app.post('/emails/send', (req, res) => {
-  res.json(sendEmails(req.body.data));
+  res.json(sendEmails(req.body));
 });
 
 // Entry point to display the html page

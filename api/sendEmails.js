@@ -30,14 +30,16 @@ const getTplParams = (participant) => {
 const sendEmails = (structuredJson) => {
   const { subject, from, body } = structuredJson;
   const bodyType = 'html';
+  const emailsAsString = [];
   structuredJson.participants.forEach((participant) => {
     const params = getTplParams(participant);
     const formattedBody = format(body, params);
     const to = participant.email;
     const email = new Email({ from, to, subject, formattedBody, bodyType });
     // email.send();
+    emailsAsString.push(formattedBody);
   });
-  return structuredJson;
+  return emailsAsString;
 };
 
 /**

@@ -2,52 +2,74 @@
 
 <html ng-app="christmasGiftsModule">
   <head>
-      <!-- META -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Christmas gift</title>
+    <title>Christmas gift</title>
 
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
   </head>
   <body ng-controller="MainController as main">
-      <div class="container">
+    <div class="container">
 
-          <div class="jumbotron text-center">
-              <h1>Number of participants <span class="label label-info">{{ main.participants.length }}</span></h1>
-          </div>
-
-
-          <div id="participant-list" class="row">
-              <div class="col-sm-4 col-sm-offset-4">
-                  <div class="participant" ng-repeat="participants in main.participants">
-                      <input type="text" ng-model="participant.name" placeholder="Name" value="{{participant.name}}" />
-                      <input type="text" ng-model="participant.email" placeholder="Email" value="{{participant.email}}" />
-                      <button type="button" ng-click="main.removeParticipant($index)">X</button>
-                  </div>
-              </div>
-          </div>
-
-          <div id="options" class="row">
-              <div class="col-sm-4 col-sm-offset-4">
-                  <div class="add-participant">
-                      <button type="button" ng-click="main.addParticipant()">add</button>
-                  </div>
-                  <div class="number-of-gift">
-                      <label>
-                        Number of gift:
-                        <input type="text" ng-model="main.numberOfGift" placeholder="Number of gift" value="{{main.numberOfGift}}" />
-                      </label>
-                  </div>
-              </div>
-          </div>
-
+      <div class="jumbotron text-center">
+        <h1>Number of participants <span class="label label-info">{{ main.participants.length }}</span></h1>
       </div>
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" />
-      
-      <script src="core.js"></script>
+
+
+      <div id="participant-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <div class="participant" ng-repeat="participant in main.participants">
+            <input type="text" ng-model="participant.name" ng-keyup="TODO" placeholder="Name" value="{{participant.name}}" />
+            <input type="text" ng-model="participant.email" ng-keyup="TODO" placeholder="Email" value="{{participant.email}}" />
+            <button type="button" ng-click="main.removeParticipant($index)">X</button>
+            <div ng-show="getParticipantError($index)">{{getParticipantError($index)}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="from" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <input type="text" ng-model="main.from" placeholder="from - email address" value="{{main.from}}" />
+        </div>
+      </div>
+
+      <div id="subject" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <input type="text" ng-model="main.subject" placeholder="subject" value="{{main.subject}}" />
+        </div>
+      </div>
+
+      <div id="body" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <textarea ng-model="main.body" placeholder="body">
+            {{main.body}}
+          </textarea>
+        </div>
+      </div>
+
+      <div id="options" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+          <div class="add-participant">
+            <button type="button" ng-click="main.addParticipant()">add</button>
+          </div>
+          <div class="number-of-gift">
+            <label>
+              Number of gift:
+              <input type="text" ng-model="main.numberOfGift" type="number" placeholder="Number of gift" value="{{main.numberOfGift}}" />
+            </label>
+          </div>
+          <div class="send-emails">
+            <button type="button" ng-click="main.sendEmails()">send</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="mainController.js"></script>
   </body>
 </html>
