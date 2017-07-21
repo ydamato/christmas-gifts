@@ -6,35 +6,48 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Node/Angular Todo App</title>
+      <title>Christmas gift</title>
 
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 
   </head>
-  <body ng-controller="MAIN.Controller">
+  <body ng-controller="MainController as main">
       <div class="container">
 
-          <!-- HEADER AND TODO COUNT -->
           <div class="jumbotron text-center">
-              <h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
+              <h1>Number of participants <span class="label label-info">{{ main.participants.length }}</span></h1>
           </div>
 
-          <!-- TODO LIST -->
-          <div id="todo-list" class="row">
+
+          <div id="participant-list" class="row">
               <div class="col-sm-4 col-sm-offset-4">
-
-                  <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                  <div class="checkbox" ng-repeat="todo in todos">
-                      <label>
-                          <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                      </label>
+                  <div class="participant" ng-repeat="participants in main.participants">
+                      <input type="text" ng-model="participant.name" placeholder="Name" value="{{participant.name}}" />
+                      <input type="text" ng-model="participant.email" placeholder="Email" value="{{participant.email}}" />
+                      <button type="button" ng-click="main.removeParticipant($index)">X</button>
                   </div>
-
               </div>
           </div>
+
+          <div id="options" class="row">
+              <div class="col-sm-4 col-sm-offset-4">
+                  <div class="add-participant">
+                      <button type="button" ng-click="main.addParticipant()">add</button>
+                  </div>
+                  <div class="number-of-gift">
+                      <label>
+                        Number of gift:
+                        <input type="text" ng-model="main.numberOfGift" placeholder="Number of gift" value="{{main.numberOfGift}}" />
+                      </label>
+                  </div>
+              </div>
+          </div>
+
       </div>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" />
+      
       <script src="core.js"></script>
   </body>
 </html>

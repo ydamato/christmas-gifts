@@ -1,39 +1,21 @@
 angular.module('christmasGiftsModule', [])
-  .controller('MAIN.Controller', ($scope, $http, $log) => {
-
-    console.log('test');
+  .controller('MainController', function mainController() {
     const vm = this;
-    vm.formData = {};
-    vm.todos = [
-      { text: 'test 1' },
-      { text: 'test 2' }
-    ];
+    _.merge({
+      vm,
+      participants: [
+        { name: 'test 1' },
+        { name: 'test 2' }
+      ],
+      numberOfGift: 1
+    });
 
-    // when submitting the add form, send the text to the node API
-    vm.createTodo = () => {
-      $http.post('/api/todos', vm.formData)
-        .success((data) => {
-          vm.formData = {}; // clear the form so our user is ready to enter another
-          vm.todos = data;
-          $log(data);
-        })
-        .error((data) => {
-          $log('Error: ' + data);
-        });
+    vm.addParticipant = () => {
+      vm.participants.push({ name: '' });
     };
 
     // delete a todo after checking it
-    vm.deleteTodo = (id) => {
-      $http.delete('/api/todos/' + id)
-        .success((data) => {
-          vm.todos = data;
-          $log(data);
-        })
-        .error((data) => {
-          $log('Error: ' + data);
-        });
+    vm.removeParticipant = (index) => {
+      vm.participants.splice(index, 1);
     };
-
-    // $scope is fine for watchers
-    $scope.$watch(angular.bind(vm, () => vm.value));
   });
