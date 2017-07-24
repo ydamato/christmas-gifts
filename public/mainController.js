@@ -1,18 +1,26 @@
 angular.module('christmasGiftsModule', [])
   .controller('MainController', function mainController($http, $log) {
+
     const vm = this;
+    
+    const getDataToSubmit = () => ({
+      participants: vm.participants,
+      quantity: vm.numberOfGift,
+      subject: vm.subject,
+      from: vm.from,
+      body: vm.body
+    });
+
     _.merge(
       vm,
       {
         participants: [
           { name: 'test 1',
-            email: 'email@test.fr',
-            isJustCreated: true
+            email: 'email@test.fr'
           },
           {
             name: 'test 2',
-            email: 'email2@test.fr',
-            isJustCreated: true
+            email: 'email2@test.fr'
           }
         ],
         numberOfGift: 1,
@@ -25,7 +33,7 @@ angular.module('christmasGiftsModule', [])
     // Add participant
     //
     vm.addParticipant = () => {
-      vm.participants.push({ isJustCreated: true });
+      vm.participants.push();
     };
 
     // Delete participant
@@ -34,31 +42,23 @@ angular.module('christmasGiftsModule', [])
       vm.participants.splice(index, 1);
     };
 
-    vm.getParticipantError = (index) => {
-      const participant = vm.participants[index];
-      if (!participant.isJustCreated && (!participant.name.trim() || !participant.email.trim())) {
-        return 'ERROR MESSAGE';
-      }
-      return null;
+    vm.validateData = () => {
+      const data = angular.toJson(getDataToSubmit());
+      $http.post('/validate', data).then(
+        (result) => {
+          vm.errors = result.data.error.details; //TODO 
+        }
+      );
     };
 
     // Send emails
     //
     vm.sendEmails = () => {
-      const data = {
-        participants: vm.participants,
-        quantity: vm.numberOfGift,
-        subject: vm.subject,
-        from: vm.from,
-        body: vm.body
-      };
+      const data = angular.toJson(getDataToSubmit());
 
-      $http.post('/emails/send', angular.toJson(data)).then(
+      $http.post('/emails/send', data).then(
         (result) => {
           $log.debug(result.data);
-        },
-        (result) => {
-          $log.debug(result);
         }
       );
     };

@@ -21,29 +21,29 @@
       <div id="participant-list" class="row">
         <div class="col-sm-4 col-sm-offset-4">
           <div class="participant" ng-repeat="participant in main.participants">
-            <input type="text" ng-model="participant.name" ng-keyup="TODO" placeholder="Name" value="{{participant.name}}" />
-            <input type="text" ng-model="participant.email" ng-keyup="TODO" placeholder="Email" value="{{participant.email}}" />
+            <input type="text" ng-model="participant.name" ng-blur="main.validateData()" placeholder="Name" value="{{participant.name}}" />
+            <input type="text" ng-model="participant.email" ng-blur="main.validateData()" placeholder="Email" value="{{participant.email}}" />
             <button type="button" ng-click="main.removeParticipant($index)">X</button>
-            <div ng-show="getParticipantError($index)">{{getParticipantError($index)}}</div>
+            <div ng-show="participant.errorMessage">{{participant.errorMessage}}</div> <!-- TODO -->
           </div>
         </div>
       </div>
 
       <div id="from" class="row">
         <div class="col-sm-4 col-sm-offset-4">
-          <input type="text" ng-model="main.from" placeholder="from - email address" value="{{main.from}}" />
+          <input type="text" ng-model="main.from" ng-blur="main.validateData()" placeholder="from - email address" value="{{main.from}}" />
         </div>
       </div>
 
       <div id="subject" class="row">
         <div class="col-sm-4 col-sm-offset-4">
-          <input type="text" ng-model="main.subject" placeholder="subject" value="{{main.subject}}" />
+          <input type="text" ng-model="main.subject" ng-blur="main.validateData()" placeholder="subject" value="{{main.subject}}" />
         </div>
       </div>
 
       <div id="body" class="row">
         <div class="col-sm-4 col-sm-offset-4">
-          <textarea ng-model="main.body" placeholder="body">
+          <textarea ng-model="main.body" ng-blur="main.validateData()" placeholder="body">
             {{main.body}}
           </textarea>
         </div>
@@ -57,7 +57,7 @@
           <div class="number-of-gift">
             <label>
               Number of gift:
-              <input type="text" ng-model="main.numberOfGift" type="number" placeholder="Number of gift" value="{{main.numberOfGift}}" />
+              <input type="text" ng-model="main.numberOfGift" type="number" ng-blur="main.validateData()" placeholder="Number of gift" value="{{main.numberOfGift}}" />
             </label>
           </div>
           <div class="send-emails">

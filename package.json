@@ -16,6 +16,7 @@
     "body-parser": "^1.17.2",
     "email": "^0.2.6",
     "express": "^4.15.3",
+    "joi": "^10.6.0",
     "json-string": "0.0.1",
     "lodash": "^4.17.4",
     "morgan": "^1.8.2",
