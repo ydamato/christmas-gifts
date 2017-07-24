@@ -21,31 +21,35 @@
       <div id="participant-list" class="row">
         <div class="col-sm-4 col-sm-offset-4">
           <div class="participant" ng-repeat="participant in main.participants">
-            <input type="text" ng-model="participant.name" ng-blur="main.validateData()" placeholder="Name" value="{{participant.name}}" />
-            <input type="text" ng-model="participant.email" ng-blur="main.validateData()" placeholder="Email" value="{{participant.email}}" />
+            <input type="text" ng-model="participant.name" ng-blur="main.validate()" placeholder="Name" value="{{participant.name}}" />
+            <input type="text" ng-model="participant.email" ng-blur="main.validate()" placeholder="Email" value="{{participant.email}}" />
             <button type="button" ng-click="main.removeParticipant($index)">X</button>
-            <div ng-show="participant.errorMessage">{{participant.errorMessage}}</div> <!-- TODO -->
+            <div ng-show="main.errors['participants.' + $index + '.email']">{{main.errors['participants.' + $index + '.email']}}</div>
+            <div ng-show="main.errors['participants.' + $index + '.name']">{{main.errors['participants.' + $index + '.name']}}</div>
           </div>
         </div>
       </div>
 
       <div id="from" class="row">
         <div class="col-sm-4 col-sm-offset-4">
-          <input type="text" ng-model="main.from" ng-blur="main.validateData()" placeholder="from - email address" value="{{main.from}}" />
+          <input type="text" ng-model="main.from" ng-blur="main.validate()" placeholder="from - email address" value="{{main.from}}" />
+          <div ng-show="main.errors.from">{{main.errors.from}}</div>
         </div>
       </div>
 
       <div id="subject" class="row">
         <div class="col-sm-4 col-sm-offset-4">
-          <input type="text" ng-model="main.subject" ng-blur="main.validateData()" placeholder="subject" value="{{main.subject}}" />
+          <input type="text" ng-model="main.subject" ng-blur="main.validate()" placeholder="subject" value="{{main.subject}}" />
+          <div ng-show="main.errors.subject">{{main.errors.subject}}</div>
         </div>
       </div>
 
       <div id="body" class="row">
         <div class="col-sm-4 col-sm-offset-4">
-          <textarea ng-model="main.body" ng-blur="main.validateData()" placeholder="body">
+          <textarea ng-model="main.body" ng-blur="main.validate()" placeholder="body">
             {{main.body}}
           </textarea>
+          <div ng-show="main.errors.body">{{main.errors.body}}</div>
         </div>
       </div>
 
@@ -57,11 +61,12 @@
           <div class="number-of-gift">
             <label>
               Number of gift:
-              <input type="text" ng-model="main.numberOfGift" type="number" ng-blur="main.validateData()" placeholder="Number of gift" value="{{main.numberOfGift}}" />
+              <input type="text" ng-model="main.numberOfGift" type="number" ng-blur="main.validate()" placeholder="Number of gift" value="{{main.numberOfGift}}" />
             </label>
+            <div ng-show="main.errors.quantity">{{main.errors.quantity}}</div>
           </div>
           <div class="send-emails">
-            <button type="button" ng-click="main.sendEmails()">send</button>
+            <button type="button" ng-disabled="main.errors" ng-click="main.sendEmails()">send</button>
           </div>
         </div>
       </div>

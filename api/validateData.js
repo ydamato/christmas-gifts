@@ -12,7 +12,7 @@ const participantSchema = Joi.object().keys({
     .required()
 });
 
-const emailSchema = Joi.object().keys({
+const allDataSchema = Joi.object().keys({
   subject: Joi
     .string()
     .min(4)
@@ -28,11 +28,10 @@ const emailSchema = Joi.object().keys({
     .max(200)
     .required(),
   participants: Joi.array().items(participantSchema),
-  numberOfGift: Joi.number().integer()
+  quantity: Joi.number().integer()
 });
 
-const validateParticipant = data => Joi.validate(data, participantSchema, { allowUnknown: true });
 
-const validate = data => Joi.validate(data, emailSchema, { allowUnknown: true });
+const validateData = data => Joi.validate(data, allDataSchema, { allowUnknown: true, abortEarly: false });
 
-module.exports = { validateParticipant, validate };
+module.exports = validateData;

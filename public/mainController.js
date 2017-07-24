@@ -33,7 +33,7 @@ angular.module('christmasGiftsModule', [])
     // Add participant
     //
     vm.addParticipant = () => {
-      vm.participants.push();
+      vm.participants.push({});
     };
 
     // Delete participant
@@ -42,11 +42,19 @@ angular.module('christmasGiftsModule', [])
       vm.participants.splice(index, 1);
     };
 
-    vm.validateData = () => {
-      const data = angular.toJson(getDataToSubmit());
-      $http.post('/validate', data).then(
+
+    vm.validate = () => {
+      const data = getDataToSubmit();
+      $http.post('/validate', angular.toJson(data)).then(
         (result) => {
-          vm.errors = result.data.error.details; //TODO 
+          if (result.data.error) {
+            vm.errors = {};
+            result.data.error.details.forEach((error) => {
+              vm.errors[error.path] = error.message;
+            });
+          } else {
+            vm.errors = null;
+          }
         }
       );
     };

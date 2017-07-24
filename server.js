@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const { join } = require('path');
 
 const sendEmails = require('./api/sendEmails');
-const { validate } = require('./api/validator');
+const validateData = require('./api/validateData');
 
 const app = express();
 
@@ -19,9 +19,9 @@ app.post('/emails/send', (req, res) => {
   res.json(sendEmails(req.body));
 });
 
-// Validate participant data
+// Validate
 app.post('/validate', (req, res) => {
-  res.json(validate(req.body));
+  res.json(validateData(req.body));
 });
 
 // Entry point to display the html page

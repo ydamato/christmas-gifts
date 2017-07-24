@@ -2,6 +2,8 @@ const shuffle = require('shuffle-array');
 const format = require('string-template');
 const _ = require('lodash');
 const { Email } = require('email');
+const validateData = require('./validateData');
+
 
 /**
  * @function getTplParams
@@ -90,5 +92,12 @@ const fillStructuredJson = (data) => {
   );
 };
 
+module.exports = (data) => {
+  const validation = validateData(data);
+  if (!validation.data.error) {
+    return sendEmails(fillStructuredJson(data));
+  }
 
-module.exports = data => sendEmails(fillStructuredJson(data));
+  return validation.data;
+};
+
