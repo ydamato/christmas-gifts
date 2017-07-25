@@ -19,11 +19,6 @@ app.post('/emails/send', (req, res) => {
   res.json(sendEmails(req.body));
 });
 
-// Validate
-app.post('/validate', (req, res) => {
-  res.json(validateData(req.body));
-});
-
 // Entry point to display the html page
 app.get('*', (req, res) => {
   res.sendfile('./public/index.html');

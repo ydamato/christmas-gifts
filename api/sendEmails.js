@@ -94,10 +94,10 @@ const fillStructuredJson = (data) => {
 
 module.exports = (data) => {
   const validation = validateData(data);
-  if (!validation.data.error) {
-    return sendEmails(fillStructuredJson(data));
-  }
-
-  return validation.data;
+  return {
+    errors: validation.error ? validation.error.details : null,
+    errorMessage: validation.error ? 'Errors occured, see below.' : null,
+    successMessage: validation.error ? null : 'Emails have been successfully sent.'
+  };
 };
 

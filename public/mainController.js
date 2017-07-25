@@ -5,7 +5,7 @@ angular.module('christmasGiftsModule', [])
     
     const getDataToSubmit = () => ({
       participants: vm.participants,
-      quantity: vm.numberOfGift,
+      quantity: vm.quantity,
       subject: vm.subject,
       from: vm.from,
       body: vm.body
@@ -23,7 +23,7 @@ angular.module('christmasGiftsModule', [])
             email: 'email2@test.fr'
           }
         ],
-        numberOfGift: 1,
+        quantity: 1,
         body: 'Hello {giver}, {receiver1} is your friend',
         from: 'test@test.fr',
         subject: 'Chritmas gift'
@@ -42,31 +42,45 @@ angular.module('christmasGiftsModule', [])
       vm.participants.splice(index, 1);
     };
 
-
-    vm.validate = () => {
-      const data = getDataToSubmit();
-      $http.post('/validate', angular.toJson(data)).then(
-        (result) => {
-          if (result.data.error) {
-            vm.errors = {};
-            result.data.error.details.forEach((error) => {
-              vm.errors[error.path] = error.message;
-            });
-          } else {
-            vm.errors = null;
-          }
-        }
-      );
+    vm.resetError = (index) => {
+      if(vm.errors) {
+        delete vm.errors[index];
+      }
     };
 
     // Send emails
     //
-    vm.sendEmails = () => {
+    vm.submit = () => {
       const data = angular.toJson(getDataToSubmit());
 
       $http.post('/emails/send', data).then(
         (result) => {
-          $log.debug(result.data);
+          if (result.data.errors) {
+            vm.errors = {};
+            result.data.errors.forEach((error) => {
+              vm.errors[error.path] = error.message;
+            });
+            _.merge(
+              vm,
+              {
+                errorMessage: result.data.errorMessage,
+                successMessage: null
+              }
+            )
+          } else {
+            vm.participants = [{}, {}];
+            _.merge(
+              vm,
+              {
+                errors: null,
+                from: null,
+                subject: null,
+                body: null,
+                errorMessage: null,
+                successMessage: result.data.successMessage
+              }
+            );
+          }
         }
       );
     };

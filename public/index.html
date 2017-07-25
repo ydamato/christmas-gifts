@@ -8,70 +8,160 @@
     <title>Christmas gift</title>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    
 
   </head>
   <body ng-controller="MainController as main">
-    <div class="container">
+    <div class="container">  
+      <form id="emailForm" ng-submit="main.submit()" method="post">
 
-      <div class="jumbotron text-center">
-        <h1>Number of participants <span class="label label-info">{{ main.participants.length }}</span></h1>
+      <div ng-show="main.successMessage" class="alert alert-success">
+        {{main.successMessage}}
       </div>
 
+      <div ng-show="main.errorMessage" class="alert alert-danger">
+        {{main.errorMessage}}
+      </div>
 
-      <div id="participant-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <div class="participant" ng-repeat="participant in main.participants">
-            <input type="text" ng-model="participant.name" ng-blur="main.validate()" placeholder="Name" value="{{participant.name}}" />
-            <input type="text" ng-model="participant.email" ng-blur="main.validate()" placeholder="Email" value="{{participant.email}}" />
-            <button type="button" ng-click="main.removeParticipant($index)">X</button>
-            <div ng-show="main.errors['participants.' + $index + '.email']">{{main.errors['participants.' + $index + '.email']}}</div>
-            <div ng-show="main.errors['participants.' + $index + '.name']">{{main.errors['participants.' + $index + '.name']}}</div>
+        <h3>Christmas Gifts</h3>
+        <h4>Please enter information needed</h4>
+
+        <!-- Participants -->
+
+        <div ng-repeat="participant in main.participants" ng-class="{error: main.errors['participants.' + $index + '.email'] || main.errors['participants.' + $index + '.name']}">
+          <div class="row">
+            <div class="col-xs-12">
+              <h4>Participant {{$index + 1}}: </h4>
+            </div>
+            <div class="col-xs-12 col-md-1">
+              <label for="participant-name-{{$index}}">Name: </label>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <input type="text" id="participant-name-{{$index}}" ng-model="participant.name" ng-keyup="main.resetError('participants.' + $index + '.name')" placeholder="Name" value="{{participant.name}}" />
+            </div>
+            <div class="col-xs-12 col-md-1">
+              <label for="participant-email-{{$index}}">Email: </label>
+            </div>
+            <div class="col-xs-12 col-md-5">
+              <input type="text" id="participant-email-{{$index}}" ng-model="participant.email" ng-keyup="main.resetError('participants.' + $index + '.email')" placeholder="Email" value="{{participant.email}}" />
+            </div>
+            <div class="col-xs-12 col-md-1">
+              <a href="javascript:void(0)" ng-click="main.removeParticipant($index)" ng-show="main.participants.length > 2">
+                <span class="glyphicon glyphicon-remove"></span>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-1 error-message">
+            </div>
+            <div class="col-xs-12 col-md-4 error-message error-message-name" ng-show="main.errors['participants.' + $index + '.name']">
+              <div>{{main.errors['participants.' + $index + '.name']}}</div>
+            </div>
+             <div class="col-xs-12 col-md-6 error-message error-message-email" ng-show="main.errors['participants.' + $index + '.email']">
+              <div>{{main.errors['participants.' + $index + '.email']}}</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="from" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <input type="text" ng-model="main.from" ng-blur="main.validate()" placeholder="from - email address" value="{{main.from}}" />
-          <div ng-show="main.errors.from">{{main.errors.from}}</div>
-        </div>
-      </div>
-
-      <div id="subject" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <input type="text" ng-model="main.subject" ng-blur="main.validate()" placeholder="subject" value="{{main.subject}}" />
-          <div ng-show="main.errors.subject">{{main.errors.subject}}</div>
-        </div>
-      </div>
-
-      <div id="body" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <textarea ng-model="main.body" ng-blur="main.validate()" placeholder="body">
-            {{main.body}}
-          </textarea>
-          <div ng-show="main.errors.body">{{main.errors.body}}</div>
-        </div>
-      </div>
-
-      <div id="options" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
-          <div class="add-participant">
-            <button type="button" ng-click="main.addParticipant()">add</button>
-          </div>
-          <div class="number-of-gift">
-            <label>
-              Number of gift:
-              <input type="text" ng-model="main.numberOfGift" type="number" ng-blur="main.validate()" placeholder="Number of gift" value="{{main.numberOfGift}}" />
-            </label>
-            <div ng-show="main.errors.quantity">{{main.errors.quantity}}</div>
-          </div>
-          <div class="send-emails">
-            <button type="button" ng-disabled="main.errors" ng-click="main.sendEmails()">send</button>
+        <div class="row">
+          <div class="col-xs-12">
+            <a href="javascript:void(0)" type="button" ng-click="main.addParticipant()">
+              <span class="glyphicon glyphicon-plus"></span>
+              Add a particpants...
+            </a>
           </div>
         </div>
-      </div>
 
+        <!-- From -->
+
+        <div ng-class="{error: main.errors.from}">
+          <div class="row">
+            <div class="col-xs-12 col-md-1">
+              <label for="from">From: </label>
+            </div>
+            <div class="col-xs-12 col-md-11">
+              <input id="from" type="text" ng-model="main.from" ng-keyup="main.resetError('from')" placeholder="From - email address" value="{{main.from}}" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-1" ng-show="main.errors.from"></div>
+            <div class="col-xs-11 error-message" ng-show="main.errors.from">
+              <div>{{main.errors.from}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject -->
+
+        <div ng-class="{error: main.errors.subject}">
+          <div class="row">
+            <div class="col-xs-12 col-md-1">
+              <label for="subject">Subject: </label>
+            </div>
+            <div class="col-xs-12 col-md-11">
+              <input id="subject" type="text" ng-model="main.subject" ng-keyup="main.resetError('subject')" placeholder="Subject" value="{{main.subject}}" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-1" ng-show="main.errors.subject"></div>
+            <div class="col-xs-11 error-message" ng-show="main.errors.subject">
+              <div>{{main.errors.subject}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        
+        <div ng-class="{error: main.errors.body}">
+          <div class="row">
+            <div class="col-xs-12 col-md-1">
+              <label for="body">Body: </label>
+            </div>
+            <div class="col-xs-12 col-md-11">
+              <textarea id="body" ng-model="main.body" ng-keyup="main.resetError('body')" placeholder="Body">
+                {{main.body}}
+              </textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-1" ng-show="main.errors.body"></div>
+            <div class="col-xs-11 error-message" ng-show="main.errors.body">
+              <div>{{main.errors.body}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quantity -->
+        
+        <div ng-class="{error: main.errors.quantity}">
+          <div class="row">
+            <div class="col-xs-12 col-md-1">
+              <label for="quantity">Number of gifts: </label>
+            </div>
+            <div class="col-xs-12 col-md-2">
+              <input id="quantity" type="text" ng-model="main.quantity" ng-keyup="main.resetError('quantity')" placeholder="Quantity" value="{{main.quantity}}" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-1" ng-show="main.errors.quantity"></div>
+            <div class="col-xs-11 error-message" ng-show="main.errors.quantity">
+              <div>{{main.errors.quantity}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit">Submit</button>
+          </div>
+        </div>
+
+        <p class="copyright">Implemented by <a href="https://damatoyann.fr" target="_blank" title="Yann D'amato">Yann D'amato</a></p>
+      </form>
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
