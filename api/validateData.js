@@ -1,5 +1,7 @@
 const Joi = require('joi');
 
+// Schema for participant
+//
 const participantSchema = Joi.object().keys({
   name: Joi
     .string()
@@ -12,6 +14,8 @@ const participantSchema = Joi.object().keys({
     .required()
 });
 
+// Schema for whole data object
+//
 const allDataSchema = Joi.object().keys({
   subject: Joi
     .string()
@@ -31,7 +35,13 @@ const allDataSchema = Joi.object().keys({
   quantity: Joi.number().integer()
 });
 
-
-const validateData = data => Joi.validate(data, allDataSchema, { allowUnknown: true, abortEarly: false });
+/**
+ * @function validateData
+ * @description Validate data
+ * @return {object} Validation response
+ * @public
+ */
+const validateData = data =>
+  Joi.validate(data, allDataSchema, { allowUnknown: true, abortEarly: false });
 
 module.exports = validateData;

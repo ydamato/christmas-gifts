@@ -4,25 +4,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Christmas gift</title>
-
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
-    
-
   </head>
   <body ng-controller="MainController as main">
     <div class="container">  
       <form id="emailForm" ng-submit="main.submit()" method="post">
 
-      <div ng-show="main.successMessage" class="alert alert-success">
-        {{main.successMessage}}
-      </div>
+        <div ng-show="main.successMessage" class="alert alert-success">
+          {{main.successMessage}}
+        </div>
 
-      <div ng-show="main.errorMessage" class="alert alert-danger">
-        {{main.errorMessage}}
-      </div>
+        <div ng-show="main.errorMessage" class="alert alert-danger">
+          {{main.errorMessage}}
+        </div>
 
         <h3>Christmas Gifts</h3>
         <h4>Please enter information needed</h4>
@@ -151,12 +147,16 @@
           </div>
         </div>
 
+        <!-- Submit -->
+
         <div class="row">
           <div class="col-xs-12">
             <button type="submit">Submit</button>
           </div>
         </div>
 
+        <!-- footer -->
+        
         <p class="copyright">Implemented by <a href="https://damatoyann.fr" target="_blank" title="Yann D'amato">Yann D'amato</a></p>
       </form>
     </div>

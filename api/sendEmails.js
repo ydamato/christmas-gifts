@@ -27,21 +27,19 @@ const getTplParams = (participant) => {
  * @function sendEmails
  * @description Send emails to all participants
  * @param {object} structuredJson JSON data for all participants
- * @return {Object} Object to send to the client
+ * @return {undefined}
  */
 const sendEmails = (structuredJson) => {
   const { subject, from, body } = structuredJson;
   const bodyType = 'html';
-  const emailsAsString = [];
+
   structuredJson.participants.forEach((participant) => {
     const params = getTplParams(participant);
     const formattedBody = format(body, params);
     const to = participant.email;
     const email = new Email({ from, to, subject, formattedBody, bodyType });
-    // email.send();
-    emailsAsString.push(formattedBody);
+    email.send();
   });
-  return emailsAsString;
 };
 
 /**
@@ -94,6 +92,9 @@ const fillStructuredJson = (data) => {
 
 module.exports = (data) => {
   const validation = validateData(data);
+  if (!validation.error) {
+    sendEmails(fillStructuredJson(data));
+  }
   return {
     errors: validation.error ? validation.error.details : null,
     errorMessage: validation.error ? 'Errors occured, see below.' : null,
