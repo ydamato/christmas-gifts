@@ -37,7 +37,16 @@ const sendEmails = (structuredJson) => {
     const params = getTplParams(participant);
     const formattedBody = format(body, params);
     const to = participant.email;
-    const email = new Email({ from, to, subject, formattedBody, bodyType });
+
+    const email = new Email(
+      {
+        from,
+        to,
+        subject,
+        body: formattedBody,
+        bodyType
+      }
+    );
     email.send();
   });
 };
